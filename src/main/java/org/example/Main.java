@@ -33,9 +33,29 @@ public class Main {
 
                 if (action.contains("inventory")) {
                     player.displayInventory();
-                } else if (action.contains("look")) {
+                }
+                else if (action.contains("look")) {
                     System.out.println("You look around the room. It’s dimly lit and cluttered but you think you can make out a torch on the wall.");
-                } else if (action.contains("help")) {
+                }
+                else if (action.contains("lighter") && action.contains("torch")|| (action.contains("light") && action.contains("torch"))) {
+                    System.out.println("The torch is lit. A doorway opens in the stone wall. Do you want to enter? (yes/no)");
+
+                    boolean validResponse = false;
+                    while (!validResponse) {
+                        String response = keyboard.nextLine().trim().toLowerCase();
+                        if (response.equals("yes")) {
+                            System.out.println("You step through the doorway and find yourself in a dark corridor.");
+                            validResponse = true;
+                            // You can add more interactions here for the corridor, or break the loop to end this scenario.
+                            break;
+                        } else if (response.equals("no")) {
+                            System.out.println("You wait in the room a while and grow bored. Do you want to exit using the entrance? (yes/no)");
+                        } else {
+                            System.out.println("Please answer 'yes' or 'no'.");
+                        }
+                    }
+                }
+                else if (action.contains("help")) {
                     System.out.println("Current general commands are: \n help \n inventory \n eat \n status \n look");
                 }
                 else if (action.contains("health") || action.contains("status")) {
@@ -47,7 +67,7 @@ public class Main {
                     if (player.getInventory().contains("pocket lasagna")) {
                         // Remove the item from inventory
                         player.getInventory().remove("pocket lasagna");
-                        System.out.println(player.getPlayerName() + " grabbed and ate the pocket lasagna from their sticky pocket. It was quite messy. \n Deeeelicious... and oddly warm!");
+                        System.out.println(player.getPlayerName() + " grabbed and ate the pocket lasagna from their sticky pocket. It was quite messy. \n Deeeelicious and oddly warm!");
 
                         // Increase health by 24, ensuring it doesn't exceed 100
                         int newHealth = Math.min(player.getHealth() + 24, 100);
